@@ -1,18 +1,20 @@
 const router = require("express").Router();
-const { protect, permit} = require('@middlewres/security');
+const { protect, permit } = require('@middlewares/security');
 const {
   createOne,
   getOne,
   getAll,
-  deleteAll
+  deleteOne
 } = require('./controller');
 
 router.route('/')
   .post(protect, permit('admin'), createOne)
-  .get(protect, permit('user', "admin"), getAll);
+  .get(getAll);
+
+router.route('/all')
 
 router.route('/:id')
-  .get(protect, permit('user', 'admin'), getOne)
-  .delete(protect, permit('admin'), deleteAll);
+  .get(getOne)
+  .delete(protect, permit('admin'), deleteOne);
 
-module.exports = router;
+  module.exports = router;

@@ -1,6 +1,6 @@
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const ErrorResponse = require('../utils/errorResponse');
+const User = require('@models/user');
+const ErrorResponse = require('@utils/errorResponse');
 
 exports.protect = async (req, res, next) => {
     let token;
@@ -58,7 +58,7 @@ exports.permit = (...roles) => {
         if (!roles.includes(req.user.role)) {
             return next(
                 new ErrorResponse(
-                    `user role ${req.user.role} is not authorized to access this route`,
+                    `'${req.user.role}' role is not authorized to access this route`,
                     403,
                     'token'
                 )
